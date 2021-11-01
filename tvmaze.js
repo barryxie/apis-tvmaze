@@ -61,7 +61,9 @@ function populateShows(shows) {
       `);
 
     $showsList.append($item);
+    
   }
+  
 }
 
 
@@ -124,9 +126,21 @@ function populateEpisodes(episodes){
   $("#episodes-area").show();
 }
 
-$("#shows-list").on("click", ".get-episodes", async function handleEpisodeClick(evt) {
-  let showId = $(evt.target).closest(".Show").data("show-id");
-  episodes = await getEpisodes(showId);
-  populateEpisodes(episodes);
+// $("#shows-list").on("click", ".get-episodes", async function handleEpisodeClick(evt) {
+//   let showId = $(evt.target).closest(".Show").data("show-id");
+//   episodes = await getEpisodes(showId);
+//   populateEpisodes(episodes);
 
-});
+// });
+
+const showsList = document.querySelector('#shows-list');
+showsList.addEventListener('click', async function(e){
+  
+  let targetTag = e.target.tagName;
+  if(targetTag === 'BUTTON'){
+    let showId = e.target.parentElement.parentElement.dataset.showId;
+    episodes = await getEpisodes(showId);
+    populateEpisodes(episodes);
+  }
+  
+})
